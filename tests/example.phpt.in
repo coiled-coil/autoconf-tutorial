@@ -1,0 +1,16 @@
+--TEST--
+network test
+--FILE--
+<?php
+$host = "@HOST@";
+$request = <<<_END_
+GET / HTTP/1.0
+Host: $host
+
+_END_;
+$fp = fsockopen($host, 80);
+fwrite($fp, $request);
+echo stream_get_contents($fp, 10 * 1024);
+fclose($fp);
+--EXPECT--
+
